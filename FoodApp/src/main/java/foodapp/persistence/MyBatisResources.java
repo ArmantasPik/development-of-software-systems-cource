@@ -1,4 +1,4 @@
-package lt.vu.persistence;
+package foodapp.persistence;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -10,7 +10,7 @@ import javax.enterprise.inject.Produces;
 import java.io.IOException;
 
 @ApplicationScoped
-public class  MyBatisResources {
+public class MyBatisResources {
 
     @Produces
     @ApplicationScoped

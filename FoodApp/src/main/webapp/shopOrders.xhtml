@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head/>
+<h:body>
+    <h2>Shop orders of #{shopOrdersForCustomer.customer.username} customer:</h2>
+    <ol>
+        <ui:repeat value="#{shopOrdersForCustomer.customer.shopOrders}" var="shopOrder">
+            <li>
+                <h:link value="Order no. ##{shopOrder.id} #{shopOrder.status}" outcome="shopOrderDetails?shopOrderId=#{shopOrder.id}" />
+            </li>
+        </ui:repeat>
+    </ol>
+    <h:form>
+        <h:inputText a:placeholder="status" value="#{shopOrdersForCustomer.shopOrderToCreate.status}" required="true" />
+        <h:commandButton value="Add shop order to customer"
+                         actionListener="#{shopOrdersForCustomer.createShopOrder}"
+                         action="#{'shopOrders?faces-redirect=true&amp;customerId='.concat(shopOrdersForCustomer.customer.id)}">
+            <f:param name="customerId" value="#{shopOrdersForCustomer.customer.id}" />
+        </h:commandButton>
+    </h:form>
+    <h:link outcome="index" value="Back to customers page"/>
+</h:body>
+</html>
