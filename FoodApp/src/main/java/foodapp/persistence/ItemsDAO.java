@@ -28,4 +28,13 @@ public class ItemsDAO {
     public Item findOne(Long id) {
         return em.find(Item.class, id);
     }
+
+    public Item update(Item item) { return em.merge(item); }
+
+    public void delete(Long itemId) {
+        Item item = em.find(Item.class, itemId);
+        if (item != null) {
+            em.remove(item);
+        }
+    }
 }

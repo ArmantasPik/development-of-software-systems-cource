@@ -8,6 +8,7 @@
 <h:head/>
 <h:body>
     <h2>Items of ##{itemsForShopOrder.shopOrder.id} shop order:</h2>
+    <h3>Status: #{itemsForShopOrder.shopOrder.status}</h3>
     <ol>
         <ui:repeat value="#{itemsForShopOrder.shopOrder.items}" var="item">
             <li>
@@ -24,8 +25,21 @@
         </div>
         <div>
             <h:commandButton value="Add item to shop order"
+                             disabled="#{itemsForShopOrder.shopOrder.status == 'Finished' || payForOrder.paymentStarted}"
                              actionListener="#{itemsForShopOrder.addItemToShopOrder}"
                              action="#{'shopOrderDetails?faces-redirect=true&amp;shopOrderId='.concat(itemsForShopOrder.shopOrder.id)}">
+                <f:param name="shopOrderId" value="#{itemsForShopOrder.shopOrder.id}" />
+            </h:commandButton>
+        </div>
+    </h:form>
+    <br/>
+    <h:form>
+        <div>
+            <h:outputText value="#{payForOrder.paymentProviderStatus}"/>
+            <h:outputText value="Can't pay for order that has no items." rendered="#{param['error'] == 'no-items'}" />
+            <h:commandButton value="pay"
+                             disabled="#{itemsForShopOrder.shopOrder.status == 'Finished' || payForOrder.paymentRunning}"
+                             action="#{payForOrder.payForNewOrder()}">
                 <f:param name="shopOrderId" value="#{itemsForShopOrder.shopOrder.id}" />
             </h:commandButton>
         </div>

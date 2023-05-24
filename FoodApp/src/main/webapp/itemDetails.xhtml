@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+
+<h:head/>
+<h:body>
+    <h2>Name: #{updateItemDetails.item.name}</h2>
+    <h3>Quantity: #{updateItemDetails.item.quantity}</h3>
+    <h:form>
+        <div>
+            <h:outputText value="item name: "/>
+            <h:inputText a:placeholder="enter the value" value="#{updateItemDetails.item.name}" required="false" />
+        </div>
+        <div>
+            <h:outputText value="item quantity: "/>
+            <h:inputText a:placeholder="enter the value" value="#{updateItemDetails.item.quantity}" required="false" />
+        </div>
+        <div>
+            <h:commandButton value="Update item" action="#{updateItemDetails.updateItem()}">
+                <f:param name="itemId" value="#{updateItemDetails.item.id}" />
+            </h:commandButton>
+            <h:commandButton value="Delete item" disabled="#{updateItemDetails.item.shopOrders.size() != 0}" action="#{updateItemDetails.removeItem()}">
+                <f:param name="itemId" value="#{updateItemDetails.item.id}" />
+            </h:commandButton>
+            <h:outputText value="Value was already modified by other user. If you want to override it - try again" rendered="#{param['error'] == 'optimistic-lock-exception'}" />
+        </div>
+    </h:form>
+    <h:link outcome="index" value="Back to home page"/>
+</h:body>
+</html>

@@ -42,7 +42,7 @@ public class Item {
         this.name = name;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<ShopOrder> shopOrders;
 
     public List<ShopOrder> getShopOrders() {
@@ -64,5 +64,27 @@ public class Item {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    @Version
+    private Integer version;
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
+    @Basic
+    private Integer quantity;
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

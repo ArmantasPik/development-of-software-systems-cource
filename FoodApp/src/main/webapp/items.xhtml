@@ -10,7 +10,9 @@
     <h2>Items:</h2>
     <ol>
         <ui:repeat value="#{items.allItems}" var="item">
-            <li><h:link value="#{item.name}" outcome="shopOrders?itemId=#{item.id}" /></li>
+            <h:link style="#{item.shopOrders.size() == 0 ? 'color:red': ''}" value="#{item.name} #{item.quantity}"
+                          outcome="itemDetails?itemId=#{item.id}"/>
+            <br></br>
         </ui:repeat>
     </ol>
     <h:form>
